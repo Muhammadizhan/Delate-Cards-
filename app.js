@@ -145,3 +145,41 @@ const products = [
     brand: "Bosch",
   },
 ];
+const parent = document.getElementById("main");
+
+function renderProducts(productsToRender) {
+  parent.innerHTML = "";
+  productsToRender.forEach((item, index) => {
+    parent.innerHTML += `
+            <div class="product" onclick="removeProduct(${index})">
+                <h2>${item.name}</h2>
+                <p>Price: $${item.price.toFixed(2)}</p>
+                <p>Category: ${item.category}</p>
+                <p>Brand: ${item.brand}</p>
+            </div>
+        `;
+  });
+}
+
+// item remove function throuh splice //
+
+function removeProduct(index) {
+  products.splice(index, 1);
+  renderProducts(products);
+}
+
+function btn(element) {
+  let category = element.innerHTML;
+  let filteredProducts;
+
+  if (category === "All") {
+    filteredProducts = products;
+  } else {
+    filteredProducts = products.filter((item) => item.category === category);
+  }
+
+  renderProducts(filteredProducts);
+}
+
+// Initial render
+renderProducts(products);
